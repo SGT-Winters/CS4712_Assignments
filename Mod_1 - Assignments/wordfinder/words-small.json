@@ -1,4 +1,4 @@
-var words = [
+[
     "a",
     "able",
     "about",
@@ -851,4 +851,4 @@ var words = [
     "yesterday",
     "you",
     "young"
-];
+]

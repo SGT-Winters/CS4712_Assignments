@@ -2,51 +2,93 @@
 
 <!--
   COLLABORATORS:
-  
+
 -->
 
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Word Finder</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Word Finder</title>
 
-<!-- Load any supplemental Javascript libraries here -->
-<script type="text/javascript" src="jquery-1.5.min.js"></script>
-<script type="text/javascript" src="words-small.json"></script>
+    <!-- Load any supplemental Javascript libraries here -->
+    <script type="text/javascript" src="jquery-1.5.min.js"></script>
+    <script type="text/javascript" src="words-large.json"></script>
+    <script type="text/javascript" src="dictionary.js"></script>
 
-<!-- Uncomment this to get the full 45,407 word dictionary
-<script type="text/javascript" src="words-large.json"></script>
- -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.getJSON("words-small.json", function (data) {
+                let scrollBox = $("#scroll");
+                data.forEach(function (word) {
+                    scrollBox.append("<div>" + word + "</div>");
+                });
+            });
 
-<script type="text/javascript" src="dictionary.js"></script>
+            $("#searchButton").click(function () {
+                $("#searchBox").val(""); // Clear the search box
+            });
+        });
 
-<script type="text/javascript">
-// <![CDATA[
+    </script>
 
-// This allows the Javascript code inside this block to only run when the page
-// has finished loading in the browser.
-$(document).ready(function() {
-	var dict = new Dictionary(words);
-	// Your code here
+    <style type="text/css">
 
-});
+        /* Your CSS here */
+        html {
+            background-color: #eee;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            margin: 20px auto;
+            max-width: 600px;
+        }
+        label, input, button, select {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+        }
 
-// ]]>
-</script>
-
-<style type="text/css">
-
-/* Your CSS here */
-html {
-    background-color: #eee;
-}
-
-</style>
+        #searchFeatures{
+            display: flex;
+            gap: 25px;
+            margin-bottom: 10px;
+        }
+        #displayBox {
+            display: flex;
+            flex-direction: row-reverse;
+            width: 500px;
+            height: 400px;
+            border: 2px solid #333;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            overflow: hidden;
+            padding: 10px;
+        }
+        #searchBox {
+            width: 250px;
+        }
+        #searchButton {
+            width: 80px;
+        }
+        #scroll{
+            flex: 1;
+            height: 100%;
+            overflow-y: scroll;
+            padding: 5px;
+        }
+    </style>
 
 </head>
 <body>
 
-<!-- Your HTML here -->
+<div id="searchFeatures">
+    <input type="text" id="searchBox" placeholder="Start typing the word here..." />
+    <button id="searchButton">Clear</button>
+</div>
+<div id="displayBox">
+    <div id="scroll">
+    </div>
+</div>
 
 </body>
 </html>
